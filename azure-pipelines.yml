@@ -21,22 +21,6 @@ steps:
     versionSpec: '18.x'
   displayName: 'Install Node.js'
 
-- task: AzurePowerShell@1
-  inputs:
-      azureSubscription: 'Azure subscription 1(1fafd6fd-eaf2-4065-b1bc-14733cc77a57)'
-      ScriptType: 'FilePath'
-      scriptPath: 'infrastructure/Set-PipelineEnivronmentToken.ps1'
-      ScriptArguments: '-ResourceGroupName ${{ variables.ResourceGroup }} SiteName ${{ variables.SiteName}}'
-      azurePowerShellVersion: latestVersion
-
-- task: AzureStaticWebApp@0
-  inputs:
-    app_location: '/'
-    api_location: 'api'
-    output_location: 'public'
-  env:
-    azure_static_web_apps_api_token: $(token)
-  
 - script: |
     npm install
     npm run build
