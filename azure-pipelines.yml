@@ -15,6 +15,14 @@ steps:
     versionSpec: '18.x'
   displayName: 'Install Node.js'
 
+- task: AzurePowerShell@1
+  inputs:
+      azureSubscription:
+      ScriptType: 'FilePath'
+      scriptPath: 'infrastructure/Set-PipelineEnivronmentToken.ps1'
+      ScriptArguments: '-ResourceGroupName ${{ variables.ResourceGroup }} SiteName ${{ variables.SiteName}}'
+      azurePowerShellVersion: latestVersion
+  
 - script: |
     npm install
     npm run build
